@@ -8,8 +8,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import copyToClipboard from "../shared/utils/copy";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
+import Typography from "../ui/typography";
+import useGetBalance from "./hooks/useGetBalance";
 
 type Props = { account: string };
 
@@ -26,6 +29,9 @@ function AccountTag(props: Props) {
 }
 
 function Balance(props: Props) {
+  const { data, isLoading } = useGetBalance(props.account);
+  const copyAccount = () => copyToClipboard(props.account);
+
   return (
     <Card>
       <CardHeader className="flex-row justify-between items-center">
@@ -35,15 +41,15 @@ function Balance(props: Props) {
       <CardContent>
         <div className="flex flex-col items-end">
           <div className="text-sm text-muted-foreground">Total balance</div>
-          <div className="text-4xl font-semibold">
-            123.987 <span className="text-primary">UOS</span>
-          </div>
+          {isLoading ? "..." : <Typography>{data}</Typography>}
         </div>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="outline">Copy address</Button>
+        <Button variant="outline" onClick={copyAccount}>
+          Copy address
+        </Button>
         <Button variant="outline">Transfer</Button>
-        <Button variant="outline">Disconnect</Button>
+        <Button variant="destructive">Disconnect</Button>
       </CardFooter>
     </Card>
   );
