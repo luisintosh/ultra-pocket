@@ -12,7 +12,7 @@ function Home() {
       <Balance account={account!} />
       <UOSTicketWidget />
       <Typography variant="h3">History</Typography>
-      <TxHistory />
+      <TxHistory account={account!} />
     </div>
   );
 }
