@@ -1,4 +1,4 @@
-import AlgoliaSearchBox from "@/components/shared/algolia/algolia-search-box";
+import AlgoliaSearchBox from "@/components/shared/algolia/uniqs/algolia-search-box";
 import Typography from "@/components/ui/typography";
 
 function Market() {

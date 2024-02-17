@@ -30,12 +30,12 @@ function AlgoliaSearchItem({ hit }: AlgoliaSearchItemProps) {
   return (
     <Drawer>
       <DrawerTrigger>
-        <div className="flex flex-col gap-1 w-[160px] md:w-[200px] text-center">
+        <div className="flex flex-col gap-1 w-[160px] md:w-[200px] pb-2 text-center border rounded-md">
           <div className="relative w-full -z-10">
             <img
               src={hit.image}
               alt={hit.name}
-              className="w-full aspect-square object-cover border rounded-md"
+              className="w-full aspect-square object-cover rounded-t"
             />
             {hit.status === "ON_SALE" && (
               <Badge

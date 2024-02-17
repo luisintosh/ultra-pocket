@@ -6,17 +6,26 @@ import {
   InstantSearch,
   Pagination,
   SearchBox,
+  useInstantSearch,
 } from "react-instantsearch";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ALGOLIA_INDEX_NAME } from "@/constants/constants";
 
+import { searchClient } from "../client";
 import AlgoliaSearchItem from "./algolia-search-item";
-import { searchClient } from "./client";
+
+function LoadingResults() {
+  const { status } = useInstantSearch();
+  if (status === "loading" || status === "stalled") {
+    return (
+      <div className="flex flex-1 justify-center items-center">Loading...</div>
+    );
+  }
+}
 
 const input =
   "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
-const button =
-  "rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground px-4";
 
 enum SearchType {
   COLLECTIBLE = "COLLECTIBLE",
@@ -52,7 +61,7 @@ function AlgoliaSearchBox(props: AlgoliaSearchBoxProps) {
   return (
     <InstantSearch
       searchClient={searchClient}
-      indexName="uniqs"
+      indexName={ALGOLIA_INDEX_NAME}
       future={{ preserveSharedStateOnUnmount: true }}
     >
       <Configure filters={searchFilter} />
@@ -64,7 +73,7 @@ function AlgoliaSearchBox(props: AlgoliaSearchBoxProps) {
         )}
         classNames={{
           form: "flex gap-3",
-          submit: button,
+          submit: "hidden",
           input,
         }}
       />
@@ -84,6 +93,7 @@ function AlgoliaSearchBox(props: AlgoliaSearchBoxProps) {
           </TabsTrigger>
         </TabsList>
       </Tabs>
+      <LoadingResults />
       <Hits
         hitComponent={AlgoliaSearchItem}
         classNames={{ list: "flex flex-wrap justify-between gap-5" }}
