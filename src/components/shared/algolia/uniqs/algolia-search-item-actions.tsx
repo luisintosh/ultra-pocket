@@ -43,13 +43,13 @@ function SearchItemActions({ hit }: AlgoliaSearchItemProps) {
     buy({
       buyer: account,
       receiver: account,
-      maxPrice: formatTokenAmount(
+      max_price: formatTokenAmount(
         String(hit.selling_price_UOS),
         "UOS",
         8,
         false,
       ),
-      tokenId: hit.on_chain_id,
+      token_id: hit.on_chain_id,
       memo: "",
     });
   };
@@ -60,7 +60,7 @@ function SearchItemActions({ hit }: AlgoliaSearchItemProps) {
       resell({
         price: formatTokenAmount(price, "UOS", 8, false),
         seller: account,
-        tokenId: hit.on_chain_id,
+        token_id: hit.on_chain_id,
       });
     }
   };

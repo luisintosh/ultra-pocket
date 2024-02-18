@@ -28,14 +28,14 @@ interface BuyArgs {
   buyer: string;
   receiver: string;
   memo: string;
-  tokenId: string;
-  maxPrice: string;
+  token_id: string;
+  max_price: string;
 }
 
 interface ResellArgs {
   seller: string;
   price: string;
-  tokenId: string;
+  token_id: string;
 }
 
 class BlockchainTransactionBuilder {
@@ -119,7 +119,7 @@ function useBlockchainTransaction() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (err.status) {
-        console.error(`Error details: ${err.data}`);
+        console.error(`Error details`, err.data);
         setError(err.message);
       } else {
         setError(err.toString());
