@@ -5,7 +5,7 @@ export function formatTokenAmount(
   value: string,
   tokenSymbol: string,
   fractionDigits: number,
-  useGrouping: string | boolean = "auto",
+  useGrouping: boolean = true,
 ) {
   const numFormat = new Intl.NumberFormat("en-US", {
     minimumFractionDigits: fractionDigits,
