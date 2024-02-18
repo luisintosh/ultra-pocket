@@ -1,5 +1,4 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Drawer,
   DrawerContent,
@@ -10,14 +9,16 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-interface AlgoliaSearchItemProps {
+import SearchItemActions from "./algolia-search-item-actions";
+
+export interface AlgoliaSearchItemProps {
   hit: {
     image: string;
     name: string;
     subName: string;
     status: string;
     selling_price_UOS: number;
-    on_chain_id: number;
+    on_chain_id: string;
     factory_id: number;
     minimum_price: { amount: number; currency: string };
     owner_on_chain_id: string;
@@ -55,29 +56,37 @@ function AlgoliaSearchItem({ hit }: AlgoliaSearchItemProps) {
       <DrawerContent className="max-w-xl mx-auto">
         <DrawerHeader>
           <DrawerTitle>{hit.name}</DrawerTitle>
-          <DrawerDescription>{hit.subName}</DrawerDescription>
+          <DrawerDescription>
+            <strong>{hit.subName}</strong>
+          </DrawerDescription>
+          <DrawerDescription>by {hit.creator_blockchain_id}</DrawerDescription>
         </DrawerHeader>
-        <DrawerDescription>
-          <div className="flex flex-col gap-4 p-4">
-            <ul className="max-w-md space-y-1 list-disc list-inside">
-              <li>ID: {hit.on_chain_id}</li>
-              <li>Factory ID: {hit.factory_id}</li>
-              <li>Selling Price: {hit.selling_price_UOS} UOS</li>
-              <li>
-                Min Price: {hit.minimum_price.amount}{" "}
-                {hit.minimum_price.currency}
-              </li>
-              <li>Owner: {hit.owner_on_chain_id}</li>
-              <li>Creator: {hit.creator_blockchain_id}</li>
-            </ul>
-            <p className="text-pretty">{hit.description}</p>
-          </div>
-        </DrawerDescription>
+        <div className="flex flex-col gap-4 text-sm text-muted-foreground p-4">
+          <ul className="grid grid-cols-3 gap-3 [&>li>*]:block [&>li>span]:text-muted-foreground text-foreground">
+            <li>
+              <span>Token ID</span> <strong>{hit.on_chain_id}</strong>
+            </li>
+            <li>
+              <span>Factory ID</span> <strong>{hit.factory_id}</strong>
+            </li>
+            <li>
+              <span>Owner</span> <strong>{hit.owner_on_chain_id}</strong>
+            </li>
+            <li>
+              <span>Selling Price</span>
+              <strong>{hit.selling_price_UOS} UOS</strong>
+            </li>
+            <li>
+              <span>Min Price</span>
+              <strong>
+                {hit.minimum_price.amount} {hit.minimum_price.currency}
+              </strong>
+            </li>
+          </ul>
+          <span className="text-pretty line-clamp-6">{hit.description}</span>
+        </div>
         <DrawerFooter>
-          <Button>Buy</Button>
-          <Button>Resell</Button>
-          <Button variant="destructive">Cancel Resell</Button>
-          <Button variant="outline">Transfer</Button>
+          <SearchItemActions hit={hit} />
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
