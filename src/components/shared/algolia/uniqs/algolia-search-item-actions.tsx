@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 import useBlockchainTransaction from "../../blockchain/hooks/useBlockchainTransaction";
 import useGetAccount from "../../hooks/useGetAccount";
-import { formatTokenAmount } from "../../uwax/utils";
+import { formatTokenAmount, isUwaxInstalled } from "../../uwax/utils";
 import { AlgoliaSearchItemProps } from "./algolia-search-item";
 
 function SearchItemActions({ hit }: AlgoliaSearchItemProps) {
@@ -72,19 +72,25 @@ function SearchItemActions({ hit }: AlgoliaSearchItemProps) {
   return (
     <>
       {!owned && onSale && (
-        <Button disabled={isLoading} onClick={() => onBuy()}>
+        <Button
+          disabled={isLoading || !isUwaxInstalled}
+          onClick={() => onBuy()}
+        >
           Buy
         </Button>
       )}
       {owned && !onSale && (
-        <Button disabled={isLoading} onClick={() => onResell()}>
+        <Button
+          disabled={isLoading || !isUwaxInstalled}
+          onClick={() => onResell()}
+        >
           Resell
         </Button>
       )}
       {owned && onSale && (
         <Button
           variant="destructive"
-          disabled={isLoading}
+          disabled={isLoading || !isUwaxInstalled}
           onClick={() => onCancelResell()}
         >
           Cancel Resell
@@ -92,8 +98,8 @@ function SearchItemActions({ hit }: AlgoliaSearchItemProps) {
       )}
       {owned && !onSale && (
         <Button
-          variant="outline"
-          disabled={isLoading}
+          variant="secondary"
+          disabled={isLoading || !isUwaxInstalled}
           onClick={() => onTransfer()}
         >
           Transfer

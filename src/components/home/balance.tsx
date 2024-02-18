@@ -13,7 +13,7 @@ import { Route } from "@/routes";
 
 import useBlockchainTransaction from "../shared/blockchain/hooks/useBlockchainTransaction";
 import { removeAccountStored } from "../shared/hooks/useGetAccount";
-import { formatTokenAmount } from "../shared/uwax/utils";
+import { formatTokenAmount, isUwaxInstalled } from "../shared/uwax/utils";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import Typography from "../ui/typography";
@@ -98,10 +98,14 @@ function Balance(props: Props) {
         </div>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="outline" onClick={() => onTransferToken()}>
+        <Button
+          variant="secondary"
+          disabled={!isUwaxInstalled}
+          onClick={() => onTransferToken()}
+        >
           Transfer
         </Button>
-        <Button variant="outline" onClick={() => shareAccount()}>
+        <Button variant="secondary" onClick={() => shareAccount()}>
           Share
         </Button>
         <Button variant="destructive" onClick={() => onDisconnect()}>

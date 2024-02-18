@@ -1,4 +1,4 @@
-export const uwaxIsInstalled = "ultra" in window;
+export const isUwaxInstalled = "ultra" in window;
 export const uwaxApi = window.ultra;
 
 export function formatTokenAmount(

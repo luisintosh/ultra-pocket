@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { BLOCKCHAIN_PROMOTER_ACCOUNT } from "@/constants/constants";
 
-import { uwaxApi, uwaxIsInstalled } from "../../uwax/utils";
+import { isUwaxInstalled,uwaxApi } from "../../uwax/utils";
 
 interface SmartContractParams {
   contract: string;
@@ -107,7 +107,7 @@ function useBlockchainTransaction() {
   const signTx = async (tx: SmartContractParams) => {
     setError("");
     setTransactionHash("");
-    if (!uwaxIsInstalled) {
+    if (!isUwaxInstalled) {
       setError("Ultra Wallet Extension is not installed");
       return;
     }

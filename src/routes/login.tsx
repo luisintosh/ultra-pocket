@@ -2,8 +2,11 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import FullBackground from "@/components/shared/full-background";
-import { setAccountStorage } from "@/components/shared/hooks/useGetAccount";
-import { uwaxApi, uwaxIsInstalled } from "@/components/shared/uwax/utils";
+import {
+  getAccountStored,
+  setAccountStorage,
+} from "@/components/shared/hooks/useGetAccount";
+import { isUwaxInstalled, uwaxApi } from "@/components/shared/uwax/utils";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,6 +26,10 @@ function Login() {
   const [id, setId] = useState("");
 
   useEffect(() => {
+    setId(getAccountStored() || "");
+  }, []);
+
+  useEffect(() => {
     if (id) {
       setAccountStorage(id);
       navigate(Route.ROOT);
@@ -35,7 +42,7 @@ function Login() {
   };
 
   const connectWallet = () => {
-    if (!uwaxIsInstalled) {
+    if (!isUwaxInstalled) {
       alert("Ultra Wallet Extension is not installed");
       return;
     }
@@ -67,6 +74,7 @@ function Login() {
               <Button
                 type="button"
                 variant="secondary"
+                disabled={!isUwaxInstalled}
                 onClick={() => connectWallet()}
               >
                 Connect Ultra Wallet
