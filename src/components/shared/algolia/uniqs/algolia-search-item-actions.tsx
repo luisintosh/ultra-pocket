@@ -35,21 +35,26 @@ function SearchItemActions({ hit }: AlgoliaSearchItemProps) {
   const onTransfer = () => {
     const to = prompt("Account to transfer");
     if (to) {
-      transfer({ from: account, to, token_ids: [hit.on_chain_id], memo: "" });
+      transfer({
+        from: account,
+        to: to.toLowerCase(),
+        token_ids: [Number(hit.on_chain_id)],
+        memo: "",
+      });
     }
   };
 
   const onBuy = () => {
     buy({
-      buyer: account,
-      receiver: account,
+      buyer: account.toLowerCase(),
+      receiver: account.toLowerCase(),
       max_price: formatTokenAmount(
         String(hit.selling_price_UOS),
         "UOS",
         8,
         false,
       ),
-      token_id: hit.on_chain_id,
+      token_id: Number(hit.on_chain_id),
       memo: "",
     });
   };
@@ -59,8 +64,8 @@ function SearchItemActions({ hit }: AlgoliaSearchItemProps) {
     if (price) {
       resell({
         price: formatTokenAmount(price, "UOS", 8, false),
-        seller: account,
-        token_id: hit.on_chain_id,
+        seller: account.toLowerCase(),
+        token_id: Number(hit.on_chain_id),
       });
     }
   };

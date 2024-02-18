@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { BLOCKCHAIN_PROMOTER_ACCOUNT } from "@/constants/constants";
 
-import { isUwaxInstalled,uwaxApi } from "../../uwax/utils";
+import { isUwaxInstalled, uwaxApi } from "../../uwax/utils";
 
 interface SmartContractParams {
   contract: string;
@@ -21,21 +21,21 @@ interface TransferArgs {
   from: string;
   to: string;
   memo: string;
-  token_ids: string[];
+  token_ids: number[];
 }
 
 interface BuyArgs {
   buyer: string;
   receiver: string;
   memo: string;
-  token_id: string;
+  token_id: number;
   max_price: string;
 }
 
 interface ResellArgs {
   seller: string;
   price: string;
-  token_id: string;
+  token_id: number;
 }
 
 class BlockchainTransactionBuilder {

@@ -67,7 +67,7 @@ function Balance(props: Props) {
     if (to && amount) {
       transferToken({
         from: props.account,
-        to,
+        to: to.toLowerCase(),
         quantity: formatTokenAmount(amount, "UOS", 8, false),
         memo: String(memo),
       });
