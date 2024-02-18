@@ -33,7 +33,7 @@ const manifestForPlugin: Partial<VitePWAOptions> = {
         purpose: "apple touch icon",
       },
     ],
-    theme_color: "#8B5CF6",
+    theme_color: "#312D36",
     background_color: "#312D36",
     display: "standalone",
     scope: "/",

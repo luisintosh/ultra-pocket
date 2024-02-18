@@ -33,9 +33,9 @@ function ItemLink({
 
 function Navigation() {
   return (
-    <div className="flex justify-center h-16 border-y">
+    <div className="flex justify-center h-20 lg:h-16 border-y">
       <NavigationMenu>
-        <NavigationMenuList>
+        <NavigationMenuList className="gap-2">
           <NavigationMenuItem>
             <ItemLink href={Route.ROOT}>
               <Wallet size={16} />
