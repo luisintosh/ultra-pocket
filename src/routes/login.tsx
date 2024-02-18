@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { BLOCKCHAIN_PROMOTER_LINK } from "@/constants/constants";
 import { Route } from "@/routes";
 
 function Login() {
@@ -46,29 +47,39 @@ function Login() {
   return (
     <div className="min-h-screen flex justify-center items-center p-5">
       <FullBackground />
-      <Card>
-        <form onSubmit={onSubmit}>
-          <CardHeader>
-            <CardTitle>Welcome to the Ultra-verse</CardTitle>
-            <CardDescription>
-              Log in with Your Blockchain Account or Connect Your Ultra Wallet
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Input ref={ref} placeholder="Blockchain account" />
-          </CardContent>
-          <CardFooter className="flex justify-between">
-            <Button
-              type="button"
-              variant="secondary"
-              onClick={() => connectWallet()}
-            >
-              Connect Ultra Wallet
-            </Button>
-            <Button type="submit">Enter</Button>
-          </CardFooter>
-        </form>
-      </Card>
+      <div>
+        <Card>
+          <form onSubmit={onSubmit}>
+            <CardHeader>
+              <CardTitle>Welcome to the Ultra-verse</CardTitle>
+              <CardDescription>
+                Log in with Your Blockchain Account or Connect Your Ultra Wallet
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Input ref={ref} placeholder="Blockchain account" />
+            </CardContent>
+            <CardFooter className="flex justify-between">
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => connectWallet()}
+              >
+                Connect Ultra Wallet
+              </Button>
+              <Button type="submit">Enter</Button>
+            </CardFooter>
+          </form>
+        </Card>
+        <div className="mt-4 text-muted-foreground">
+          Don't Have an Account?{" "}
+          <Button variant="link" asChild>
+            <a href={BLOCKCHAIN_PROMOTER_LINK} target="_blank">
+              Sign up here
+            </a>
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
