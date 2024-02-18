@@ -8,7 +8,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import copyToClipboard from "../shared/utils/copy";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import Typography from "../ui/typography";
@@ -28,9 +27,18 @@ function AccountTag(props: Props) {
   );
 }
 
+const shareMessage =
+  'Excited to share my Ultra blockchain account with you "ACCOUNT"!! Discover the power of decentralized digital assets with Ultra Pocket app. https://ultra-pocket.luis.best';
+
 function Balance(props: Props) {
   const { data, isLoading } = useGetBalance(props.account);
-  const copyAccount = () => copyToClipboard(props.account);
+  const shareAccount = () => {
+    const account = props.account.toUpperCase();
+    const message = {
+      text: shareMessage.replace("ACCOUNT", account),
+    };
+    window.navigator.share(message);
+  };
 
   return (
     <Card>
@@ -41,14 +49,18 @@ function Balance(props: Props) {
       <CardContent>
         <div className="flex flex-col items-end">
           <div className="text-sm text-muted-foreground">Total balance</div>
-          {isLoading ? "..." : <Typography>{data}</Typography>}
+          {isLoading ? (
+            "..."
+          ) : (
+            <Typography className="text-3xl">{data}</Typography>
+          )}
         </div>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="outline" onClick={copyAccount}>
-          Copy address
-        </Button>
         <Button variant="outline">Transfer</Button>
+        <Button variant="outline" onClick={() => shareAccount()}>
+          Share
+        </Button>
         <Button variant="destructive">Disconnect</Button>
       </CardFooter>
     </Card>

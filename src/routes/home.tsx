@@ -9,10 +9,10 @@ function Home() {
 
   return (
     <div className="flex flex-col gap-5">
-      <Balance account={account!} />
+      <Balance account={account} />
       <UOSTicketWidget />
       <Typography variant="h3">History</Typography>
-      <TxHistory account={account!} />
+      <TxHistory account={account} />
     </div>
   );
 }
