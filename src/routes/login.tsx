@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import FullBackground from "@/components/shared/full-background";
 import { setAccountStorage } from "@/components/shared/hooks/useGetAccount";
-import { uwaxApi } from "@/components/shared/uwax/utils";
+import { uwaxApi, uwaxIsInstalled } from "@/components/shared/uwax/utils";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -35,6 +35,10 @@ function Login() {
   };
 
   const connectWallet = () => {
+    if (!uwaxIsInstalled) {
+      alert("Ultra Wallet Extension is not installed");
+      return;
+    }
     uwaxApi
       .connect()
       .then((response) => {
