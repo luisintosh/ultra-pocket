@@ -1,4 +1,5 @@
 import { User } from "lucide-react";
+import { useEffect } from "react";
 
 import {
   Card,
@@ -8,6 +9,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import useBlockchainTransaction from "../shared/blockchain/hooks/useBlockchainTransaction";
+import { formatTokenAmount } from "../shared/uwax/utils";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import Typography from "../ui/typography";
@@ -31,13 +34,41 @@ const shareMessage =
   'Excited to share my Ultra blockchain account with you "ACCOUNT"!! Discover the power of decentralized digital assets with Ultra Pocket app. https://ultra-pocket.luis.best';
 
 function Balance(props: Props) {
-  const { data, isLoading } = useGetBalance(props.account);
+  const { transferToken, isLoading, error, transactionHash } =
+    useBlockchainTransaction();
+  const { data, isLoading: isBalanceLoading } = useGetBalance(props.account);
   const shareAccount = () => {
     const account = props.account.toUpperCase();
     const message = {
       text: shareMessage.replace("ACCOUNT", account),
     };
     window.navigator.share(message);
+  };
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (error) {
+        console.error(error);
+        alert(`Error: ${error}`);
+      }
+      if (transactionHash) {
+        alert(`Success! Transaction hash: ${transactionHash}`);
+      }
+    }
+  }, [isLoading, error, transactionHash]);
+
+  const onTransferToken = () => {
+    const to = prompt("Account to transfer");
+    const amount = prompt("Amount of UOS");
+    const memo = prompt("Write a memo (Optional)");
+    if (to && amount) {
+      transferToken({
+        from: props.account,
+        to,
+        quantity: formatTokenAmount(amount, "UOS", 8, false),
+        memo: String(memo),
+      });
+    }
   };
 
   return (
@@ -49,7 +80,7 @@ function Balance(props: Props) {
       <CardContent>
         <div className="flex flex-col items-end">
           <div className="text-sm text-muted-foreground">Total balance</div>
-          {isLoading ? (
+          {isBalanceLoading ? (
             "..."
           ) : (
             <Typography className="text-3xl">{data}</Typography>
@@ -57,7 +88,9 @@ function Balance(props: Props) {
         </div>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="outline">Transfer</Button>
+        <Button variant="outline" onClick={() => onTransferToken()}>
+          Transfer
+        </Button>
         <Button variant="outline" onClick={() => shareAccount()}>
           Share
         </Button>
