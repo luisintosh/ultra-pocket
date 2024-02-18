@@ -119,6 +119,7 @@ function useBlockchainTransaction() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (err.status) {
+        console.error(`Error details: ${err.data}`);
         setError(err.message);
       } else {
         setError(err.toString());

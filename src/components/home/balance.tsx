@@ -48,7 +48,6 @@ function Balance(props: Props) {
   useEffect(() => {
     if (!isLoading) {
       if (error) {
-        console.error(error);
         alert(`Error: ${error}`);
       }
       if (transactionHash) {
