@@ -36,7 +36,7 @@ function AlgoliaSearchItem({ hit }: AlgoliaSearchItemProps) {
             <img
               src={hit.image}
               alt={hit.name}
-              className="w-full aspect-square object-cover rounded-t"
+              className="w-full aspect-square object-cover rounded-t bg-secondary"
             />
             {hit.status === "ON_SALE" && (
               <Badge
