@@ -12,7 +12,7 @@ import {
 import { Route } from "@/routes";
 
 import useBlockchainTransaction from "../shared/blockchain/hooks/useBlockchainTransaction";
-import { removeAccountStored } from "../shared/hooks/useGetAccount";
+import { removeAccountStored } from "../shared/utils/account";
 import { formatTokenAmount, isUwaxInstalled } from "../shared/uwax/utils";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";

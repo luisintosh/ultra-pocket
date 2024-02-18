@@ -5,7 +5,7 @@ import FullBackground from "@/components/shared/full-background";
 import {
   getAccountStored,
   setAccountStorage,
-} from "@/components/shared/hooks/useGetAccount";
+} from "@/components/shared/utils/account";
 import { isUwaxInstalled, uwaxApi } from "@/components/shared/uwax/utils";
 import { Button } from "@/components/ui/button";
 import {

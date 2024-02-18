@@ -1,6 +1,6 @@
 import { createHashRouter, redirect } from "react-router-dom";
 
-import { getAccountStored } from "./components/shared/hooks/useGetAccount";
+import { getAccountStored } from "./components/shared/utils/account";
 import Home from "./routes/home";
 import Inventory from "./routes/inventory";
 import Login from "./routes/login";

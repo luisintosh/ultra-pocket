@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 
 import useBlockchainTransaction from "../../blockchain/hooks/useBlockchainTransaction";
-import useGetAccount from "../../hooks/useGetAccount";
+import { getAccountStored } from "../../utils/account";
 import { formatTokenAmount, isUwaxInstalled } from "../../uwax/utils";
 import { AlgoliaSearchItemProps } from "./algolia-search-item";
 
@@ -17,7 +17,7 @@ function SearchItemActions({ hit }: AlgoliaSearchItemProps) {
     error,
     transactionHash,
   } = useBlockchainTransaction();
-  const { account } = useGetAccount();
+  const account = getAccountStored();
   const owned = account === hit.owner_on_chain_id;
   const onSale = hit.status === "ON_SALE";
 

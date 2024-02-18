@@ -1,11 +1,11 @@
 import Balance from "@/components/home/balance";
 import TxHistory from "@/components/home/tx-hisotry";
 import UOSTicketWidget from "@/components/home/uos-ticker-widget";
-import useGetAccount from "@/components/shared/hooks/useGetAccount";
+import { getAccountStored } from "@/components/shared/utils/account";
 import Typography from "@/components/ui/typography";
 
 function Home() {
-  const { account } = useGetAccount();
+  const account = getAccountStored();
 
   return (
     <div className="flex flex-col gap-5">
