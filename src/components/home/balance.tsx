@@ -1,5 +1,6 @@
 import { User } from "lucide-react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   Card,
@@ -8,8 +9,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Route } from "@/routes";
 
 import useBlockchainTransaction from "../shared/blockchain/hooks/useBlockchainTransaction";
+import { removeAccountStored } from "../shared/hooks/useGetAccount";
 import { formatTokenAmount } from "../shared/uwax/utils";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
@@ -34,6 +37,7 @@ const shareMessage =
   'Excited to share my Ultra blockchain account with you "ACCOUNT"!! Discover the power of decentralized digital assets with Ultra Pocket app. https://ultra-pocket.luis.best';
 
 function Balance(props: Props) {
+  const navigate = useNavigate();
   const { transferToken, isLoading, error, transactionHash } =
     useBlockchainTransaction();
   const { data, isLoading: isBalanceLoading } = useGetBalance(props.account);
@@ -70,6 +74,13 @@ function Balance(props: Props) {
     }
   };
 
+  const onDisconnect = () => {
+    if (confirm("Are you sure?")) {
+      removeAccountStored();
+      navigate(Route.LOGIN);
+    }
+  };
+
   return (
     <Card>
       <CardHeader className="flex-row justify-between items-center">
@@ -93,7 +104,9 @@ function Balance(props: Props) {
         <Button variant="outline" onClick={() => shareAccount()}>
           Share
         </Button>
-        <Button variant="destructive">Disconnect</Button>
+        <Button variant="destructive" onClick={() => onDisconnect()}>
+          Disconnect
+        </Button>
       </CardFooter>
     </Card>
   );

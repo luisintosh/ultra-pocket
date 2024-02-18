@@ -1,7 +1,9 @@
-import { createHashRouter } from "react-router-dom";
+import { createHashRouter, redirect } from "react-router-dom";
 
+import { getAccountStored } from "./components/shared/hooks/useGetAccount";
 import Home from "./routes/home";
 import Inventory from "./routes/inventory";
+import Login from "./routes/login";
 import Market from "./routes/market";
 import Root from "./routes/root";
 
@@ -17,6 +19,13 @@ const router = createHashRouter([
   {
     path: Route.ROOT,
     element: <Root />,
+    loader: async () => {
+      const account = getAccountStored();
+      if (!account) {
+        return redirect(Route.LOGIN);
+      }
+      return account;
+    },
     children: [
       {
         path: Route.ACCOUNT,
@@ -31,6 +40,10 @@ const router = createHashRouter([
         element: <Market />,
       },
     ],
+  },
+  {
+    path: Route.LOGIN,
+    element: <Login />,
   },
 ]);
 
