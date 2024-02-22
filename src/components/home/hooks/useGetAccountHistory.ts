@@ -16,6 +16,7 @@ function useGetAccountHistory(account: string) {
   return useQuery({
     queryKey: ["GetAccountHistory"],
     queryFn: () => fetch(url).then((res) => res.json()),
+    refetchInterval: 10_000,
   });
 }
 

@@ -10,6 +10,7 @@ function useGetBalance(account: string) {
       blockchainApi.rpc
         .get_currency_balance("eosio.token", account, BLOCKCHAIN_TOKEN_CODE)
         .then((r) => r[0]),
+    refetchInterval: 10_000,
   });
 }
 
